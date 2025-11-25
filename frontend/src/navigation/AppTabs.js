@@ -7,6 +7,8 @@ import HomeScreen from '../features/transports/HomeScreen';
 import DetailsScreen from '../features/transports/DetailsScreen';
 import FavouritesScreen from '../features/transports/FavouritesScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import SearchPlanner from '../features/search/SearchPlanner';
+import TrackingScreen from '../features/tracking/TrackingScreen';
 
 /**
  * AppTabs Navigator
@@ -58,6 +60,26 @@ const FavouritesStack = () => {
   );
 };
 
+// Search Stack - includes planner and details
+const SearchStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="SearchMain" component={SearchPlanner} />
+      <Stack.Screen name="Details" component={DetailsScreen} options={{ headerShown: true, headerTitle: 'Route Details' }} />
+    </Stack.Navigator>
+  );
+};
+
+// Tracking Stack - tracking main screen and details
+const TrackingStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="TrackingMain" component={TrackingScreen} />
+      <Stack.Screen name="Details" component={DetailsScreen} options={{ headerShown: true, headerTitle: 'Route Details' }} />
+    </Stack.Navigator>
+  );
+};
+
 const AppTabs = () => {
   const { theme } = useTheme();
 
@@ -92,12 +114,32 @@ const AppTabs = () => {
         }}
       />
       <Tab.Screen
+        name="Search"
+        component={SearchStack}
+        options={{
+          tabBarLabel: 'Search',
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="search" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Favourites"
         component={FavouritesStack}
         options={{
           tabBarLabel: 'Favourites',
           tabBarIcon: ({ color, size }) => (
             <Feather name="heart" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Tracking"
+        component={TrackingStack}
+        options={{
+          tabBarLabel: 'Tracking',
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="map" size={size} color={color} />
           ),
         }}
       />
